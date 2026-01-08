@@ -50,6 +50,7 @@ class TapToOpenFab extends StatelessWidget {
             onPressed: toggle,
             elevation: openElevation,
             shape: const CircleBorder(),
+            backgroundColor: Colors.white,
             child: open ? const SizedBox() : openIcon,
           ),
         ),
