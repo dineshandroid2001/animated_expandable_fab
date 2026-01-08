@@ -49,6 +49,7 @@ class TapToOpenFab extends StatelessWidget {
           child: FloatingActionButton(
             onPressed: toggle,
             elevation: openElevation,
+            shape: const CircleBorder(),
             child: open ? const SizedBox() : openIcon,
           ),
         ),
