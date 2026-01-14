@@ -40,8 +40,8 @@ class TapToCloseFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 56.0,
-      height: 56.0,
+      width: 72.0,
+      height: 72.0,
       child: Center(
         child: Material(
           shape: const CircleBorder(),
@@ -51,15 +51,19 @@ class TapToCloseFab extends StatelessWidget {
           color: closeBackgroundColor,
           child: InkWell(
             onTap: toggle,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: !open
-                  ? const SizedBox()
-                  : (closeIcon ??
-                      Icon(
-                        Icons.close,
-                        color: Theme.of(context).primaryColor,
-                      )),
+            customBorder: const CircleBorder(),
+            child: SizedBox.expand(
+              //  Expanding the size
+              child: Center(
+                child: open
+                    ? (closeIcon ??
+                        Icon(
+                          Icons.close,
+                          size: 36,
+                          color: Theme.of(context).primaryColor,
+                        ))
+                    : const SizedBox.shrink(),
+              ),
             ),
           ),
         ),
