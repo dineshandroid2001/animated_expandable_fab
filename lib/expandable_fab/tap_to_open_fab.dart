@@ -46,12 +46,16 @@ class TapToOpenFab extends StatelessWidget {
           opacity: open ? 0.0 : 1.0,
           curve: const Interval(0.25, 1.0, curve: Curves.easeInOut),
           duration: const Duration(milliseconds: 250),
-          child: FloatingActionButton(
-            onPressed: toggle,
-            elevation: openElevation,
-            shape: const CircleBorder(),
-            backgroundColor: Colors.white,
-            child: open ? const SizedBox() : openIcon,
+          child: SizedBox(
+            height: 72,
+            width: 72,
+            child: FloatingActionButton(
+              onPressed: toggle,
+              elevation: openElevation,
+              shape: const CircleBorder(),
+              backgroundColor: Colors.white,
+              child: open ? const SizedBox() : openIcon,
+            ),
           ),
         ),
       ),
