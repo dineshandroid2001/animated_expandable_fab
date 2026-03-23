@@ -61,7 +61,32 @@ class ActionButton extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (text != null) text!,
+        if (text != null) ...
+          [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  color: textColor ?? Colors.black87,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                ),
+                child: text!,
+              ),
+            ),
+            const SizedBox(width: 8),
+          ],
         Material(
           shape: buttonShape,
           clipBehavior: clipBehavior,

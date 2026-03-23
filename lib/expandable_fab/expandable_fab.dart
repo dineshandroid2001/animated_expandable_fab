@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:animated_expandable_fab/animated_expandable_fab.dart';
 import 'package:animated_expandable_fab/expandable_fab/tap_to_open_fab.dart';
 import 'package:flutter/material.dart';
@@ -93,13 +95,29 @@ class _ExpandableFabState extends State<ExpandableFab>
         alignment: Alignment.bottomRight,
         clipBehavior: Clip.none,
         children: [
+          // Blur overlay when open
+          if (_isOpen)
+            Positioned.fill(
+              child: AnimatedBuilder(
+                animation: _expandAnimation,
+                builder: (context, _) => BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 5.0 * _expandAnimation.value,
+                    sigmaY: 5.0 * _expandAnimation.value,
+                  ),
+                  child: GestureDetector(
+                    onTap: _toggleFab,
+                    child: Container(color: Colors.transparent),
+                  ),
+                ),
+              ),
+            ),
           TapToCloseFab(
             closeBackgroundColor: widget.closeBackgroundColor,
             closeShadowColor: widget.closeShadowColor,
             closeElevation: widget.closeElevation,
             closeIcon: closeIcon,
             open: _isOpen,
-            // Optional
             toggle: _toggleFab,
           ),
           ..._buildExpandingActionButtons(),
@@ -126,18 +144,15 @@ class _ExpandableFabState extends State<ExpandableFab>
     });
   }
 
-  // builds the expanding action buttons
+  // builds the expanding action buttons in a straight vertical column
   List<Widget> _buildExpandingActionButtons() {
     final children = <Widget>[];
     final count = widget.children.length;
-    final step = 90.0 / (count - 1);
-    for (var i = 0, angleInDegrees = 0.0;
-        i < count;
-        i++, angleInDegrees += step) {
+    for (var i = 0; i < count; i++) {
       children.add(
         ExpandingActionButton(
-          directionInDegrees: angleInDegrees,
-          maxDistance: widget.distance,
+          index: i,
+          itemSpacing: widget.distance / count,
           progress: _expandAnimation,
           child: widget.children[i],
           onTap: () {
@@ -167,3 +182,5 @@ class _ExpandableFabState extends State<ExpandableFab>
     super.dispose();
   }
 }
+
+//git push changes.

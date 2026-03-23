@@ -1,31 +1,23 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class ExpandingActionButton extends StatelessWidget {
-  /// Creates an expanding action button.
   const ExpandingActionButton({
     super.key,
-    required this.directionInDegrees,
-    required this.maxDistance,
+    required this.index,
+    required this.itemSpacing,
     required this.progress,
     required this.child,
     this.onTap,
   });
 
-  /// The direction of the button's expansion in degrees.
-  final double directionInDegrees;
+  /// The index of this button in the list (0 = closest to FAB).
+  final int index;
 
-  /// The maximum distance the button should expand.
-  final double maxDistance;
+  /// Vertical spacing between each button.
+  final double itemSpacing;
 
-  /// The animation that controls the button's expansion progress.
   final Animation<double> progress;
-
-  /// The widget below this widget in the tree.
   final Widget child;
-
-  /// The callback that is called when the button is tapped
   final VoidCallback? onTap;
 
   @override
@@ -33,17 +25,11 @@ class ExpandingActionButton extends StatelessWidget {
     return AnimatedBuilder(
       animation: progress,
       builder: (context, child) {
-        final offset = Offset.fromDirection(
-          directionInDegrees * (pi / 180.0),
-          progress.value * maxDistance,
-        );
+        final bottomOffset = 4.0 + (index + 1) * itemSpacing * progress.value;
         return Positioned(
-          right: 4.0 + offset.dx,
-          bottom: 4.0 + offset.dy,
-          child: Transform.rotate(
-            angle: (1.0 - progress.value) * pi / 2,
-            child: child!,
-          ),
+          right: 4.0,
+          bottom: bottomOffset,
+          child: child!,
         );
       },
       child: FadeTransition(

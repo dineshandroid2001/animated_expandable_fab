@@ -25,8 +25,8 @@ void main() {
               children: [
                 ExpandingActionButton(
                   key: const Key('ExpandingActionButton'),
-                  directionInDegrees: 0.0,
-                  maxDistance: 0.0,
+                  index: 0,
+                  itemSpacing: 0.0,
                   progress: AnimationController(vsync: tester).view,
                   child: actionButton,
                   onTap: () {
